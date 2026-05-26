@@ -1,0 +1,195 @@
+<div class="contenedor-seccion">
+  <h1 class="titulo">
+    <span class="material-icons titulo-icono">event</span>
+    Registro de Reservas
+  </h1>
+
+  <div class="transaccion-contenedor">
+    
+    <!-- COLUMNA IZQUIERDA: DATOS GENERALES Y DETALLES -->
+    <div class="datos-generales-card form-card">
+      <h2 class="form-titulo">
+        <span class="material-icons">info</span>
+        Información General
+      </h2>
+
+      <div class="form-grid">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Cliente</mat-label>
+          <mat-select name="cliente" [(ngModel)]="reserva.cliente" [compareWith]="compareObjects">
+            <mat-option *ngFor="let cli of clientes()" [value]="cli">
+              {{ cli.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Sala de Ensayo / Grabación</mat-label>
+          <mat-select name="sala" [(ngModel)]="reserva.sala" [compareWith]="compareObjects">
+            <mat-option *ngFor="let s of salas()" [value]="s">
+              {{ s.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>meeting_room</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Fecha y Hora</mat-label>
+          <input matInput type="datetime-local" name="fecha" [(ngModel)]="reserva.fecha" />
+          <mat-icon matSuffix>calendar_month</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <mat-divider style="margin: 20px 0;"></mat-divider>
+
+      <!-- AGREGAR DETALLES -->
+      <h2 class="form-titulo">
+        <span class="material-icons">add_shopping_cart</span>
+        Agregar Servicios a la Reserva
+      </h2>
+
+      <div class="detalle-formulario-grid">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Servicio</mat-label>
+          <mat-select [(ngModel)]="selectedServicio">
+            <mat-option *ngFor="let serv of servicios()" [value]="serv">
+              {{ serv.nombre }} (S/ {{ serv.precioPorHora }}/h)
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>music_note</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Horas</mat-label>
+          <input matInput type="number" [(ngModel)]="cantidadHoras" min="1" />
+          <mat-icon matSuffix>schedule</mat-icon>
+        </mat-form-field>
+
+        <div class="btn-agregar-wrapper">
+          <button mat-raised-button color="accent" class="btn-agregar" (click)="agregarDetalle()">
+            <mat-icon>add</mat-icon>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLA TEMPORAL DE DETALLES -->
+      <div class="tabla-temporal-contenedor">
+        <table class="tabla-temporal">
+          <thead>
+            <tr>
+              <th>Servicio</th>
+              <th>Precio/Hora</th>
+              <th>Horas</th>
+              <th>Subtotal</th>
+              <th style="width: 80px;">Quitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let det of detalles(); let i = index">
+              <td>{{ det.servicio.nombre }}</td>
+              <td>S/ {{ det.servicio.precioPorHora | number: '1.2-2' }}</td>
+              <td>{{ det.cantidadHoras }}</td>
+              <td>S/ {{ det.subtotal | number: '1.2-2' }}</td>
+              <td style="text-align: center;">
+                <button mat-icon-button color="warn" (click)="removerDetalle(i)">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="detalles().length === 0">
+              <td colspan="5" class="tabla-vacia">
+                No se han agregado servicios a esta reserva.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECCIÓN TOTAL Y REGISTRO -->
+      <div class="reserva-footer">
+        <div class="total-caja">
+          <span class="total-etiqueta">Total Reserva:</span>
+          <span class="total-valor">S/ {{ (reserva.total || 0) | number: '1.2-2' }}</span>
+        </div>
+        <div class="form-acciones">
+          <button mat-raised-button color="primary" class="btn-registrar" (click)="guardar()">
+            <mat-icon>event_available</mat-icon>
+            Registrar Reserva
+          </button>
+          <button mat-stroked-button (click)="limpiar()">
+            <mat-icon>clear_all</mat-icon>
+            Limpiar Todo
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SECCIÓN HISTORIAL DE RESERVAS -->
+  <div class="tabla-card" style="margin-top: 24px;">
+    <div class="tabla-header">
+      <h2 class="form-titulo">
+        <span class="material-icons">history</span>
+        Historial de Reservas Registradas
+      </h2>
+    </div>
+
+    <div class="tabla-contenedor">
+      <table mat-table [dataSource]="dataSourceReserva()" class="tabla-completa mat-elevation-z2">
+        
+        <ng-container matColumnDef="idReserva">
+          <th mat-header-cell *matHeaderCellDef># Reserva</th>
+          <td mat-cell *matCellDef="let row">{{ row.idReserva }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef>Cliente</th>
+          <td mat-cell *matCellDef="let row">{{ row.cliente?.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sala">
+          <th mat-header-cell *matHeaderCellDef>Sala</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="sala-tag">{{ row.sala?.nombre }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha y Hora</th>
+          <td mat-cell *matCellDef="let row">{{ row.fecha | date: 'dd/MM/yyyy hh:mm a' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef>Total</th>
+          <td mat-cell *matCellDef="let row" style="font-weight: 700;">S/ {{ row.total | number: '1.2-2' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button class="btn-eliminar" matTooltip="Eliminar/Cancelar Reserva" (click)="eliminar(row.idReserva)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsReserva"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsReserva;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell sin-datos" colspan="6">
+            <span class="material-icons">event_busy</span>
+            <p>No se encontraron reservas registradas.</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </div>
+
+</div>

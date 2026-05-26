@@ -1,0 +1,123 @@
+<div class="contenedor-seccion">
+
+  <h1 class="titulo">
+    <span class="material-icons titulo-icono">meeting_room</span>
+    Salas
+  </h1>
+
+  <form #salaForm="ngForm" (ngSubmit)="salaForm.valid && guardar()" class="form-card">
+    <h2 class="form-titulo">
+      <span class="material-icons">{{ isEditing ? 'edit' : 'add_location' }}</span>
+      {{ isEditing ? 'Editar Sala' : 'Nueva Sala' }}
+    </h2>
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Nombre</mat-label>
+        <input matInput name="nombre" [(ngModel)]="sala.nombre" placeholder="Nombre de la sala" required #nombreField="ngModel" />
+        <mat-icon matSuffix>badge</mat-icon>
+        <mat-error *ngIf="nombreField.invalid && (nombreField.dirty || nombreField.touched)">
+          El nombre es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Estado</mat-label>
+        <mat-select name="estado" [(ngModel)]="sala.estado" required #estadoField="ngModel">
+          <mat-option [value]="true">Activo</mat-option>
+          <mat-option [value]="false">Inactivo</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>toggle_on</mat-icon>
+        <mat-error *ngIf="estadoField.invalid && (estadoField.dirty || estadoField.touched)">
+          El estado es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-acciones">
+      <button mat-raised-button color="primary" type="submit" [disabled]="salaForm.invalid">
+        <mat-icon>{{ isEditing ? 'save' : 'add_circle' }}</mat-icon>
+        {{ isEditing ? 'Actualizar' : 'Registrar' }}
+      </button>
+      @if (isEditing) {
+        <button mat-stroked-button type="button" (click)="limpiar()">
+          <mat-icon>cancel</mat-icon>
+          Cancelar
+        </button>
+      }
+    </div>
+  </form>
+
+  <div class="tabla-card">
+
+    <div class="tabla-header">
+      <h2 class="form-titulo">
+        <span class="material-icons">list_alt</span>
+        Listado de Salas
+      </h2>
+      <mat-form-field appearance="outline" class="campo-buscar">
+        <mat-label>Buscar...</mat-label>
+        <input matInput (keyup)="applyFilter($event)" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="tabla-contenedor">
+      <table mat-table [dataSource]="dataSource()" class="tabla-completa mat-elevation-z2">
+
+        <ng-container matColumnDef="idSala">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let row">{{ row.idSala }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let row">
+            <div class="celda-nombre">
+              <span class="avatar">{{ row.nombre?.charAt(0).toUpperCase() }}</span>
+              {{ row.nombre }}
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let row">
+            <span [class.activo]="row.estado" [class.inactivo]="!row.estado">
+              {{ row.estado ? 'Activo' : 'Inactivo' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button class="btn-editar" matTooltip="Editar" (click)="editar(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button class="btn-eliminar" matTooltip="Eliminar" (click)="eliminar(row.idSala)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell sin-datos" colspan="4">
+            <span class="material-icons">search_off</span>
+            <p>No se encontraron salas.</p>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+
+  </div>
+
+</div>

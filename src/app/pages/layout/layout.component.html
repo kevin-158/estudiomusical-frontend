@@ -1,0 +1,64 @@
+<div class="layout-container">
+  <mat-toolbar class="toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>{{ sidenav.opened ? 'close' : 'menu' }}</mat-icon>
+    </button>
+    <span class="brand-title">🎵 ESTUDIO MUSICAL</span>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>person</mat-icon>
+        <span>Mi Cuenta</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav" style="width: 260px;">
+      <div class="sidenav-header">
+        <span class="material-icons logo-icon">graphic_eq</span>
+        <h3>Menú Principal</h3>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div class="menu-items">
+        <a class="menu-item" mat-menu-item routerLink="/clientes" routerLinkActive="active">
+          <mat-icon>people</mat-icon>
+          <span>Clientes</span>
+        </a>
+        <mat-divider></mat-divider>
+
+        <a class="menu-item" mat-menu-item routerLink="/salas" routerLinkActive="active">
+          <mat-icon>meeting_room</mat-icon>
+          <span>Salas</span>
+        </a>
+        <mat-divider></mat-divider>
+
+        <a class="menu-item" mat-menu-item routerLink="/servicios" routerLinkActive="active">
+          <mat-icon>music_note</mat-icon>
+          <span>Servicios</span>
+        </a>
+        <mat-divider></mat-divider>
+
+        <a class="menu-item" mat-menu-item routerLink="/reservas" routerLinkActive="active">
+          <mat-icon>event</mat-icon>
+          <span>Reservas</span>
+        </a>
+        <mat-divider></mat-divider>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="main-content">
+      <div class="view-wrapper">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

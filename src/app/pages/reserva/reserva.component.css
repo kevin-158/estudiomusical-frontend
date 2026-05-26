@@ -1,0 +1,259 @@
+.contenedor-seccion {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #2d3436;
+    font-size: 1.8rem;
+    border-bottom: 3px solid var(--mat-sys-primary);
+    display: inline-flex;
+    margin-bottom: 1.5rem;
+}
+
+.titulo-icono {
+    font-size: 2rem;
+    color: var(--mat-sys-primary);
+}
+
+.form-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-left: 5px solid var(--mat-sys-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.form-titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    color: #2d3436;
+    margin: 0 0 20px 0;
+    font-weight: 600;
+}
+
+.form-titulo .material-icons {
+    color: var(--mat-sys-primary);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.campo {
+    width: 100%;
+}
+
+/* Formulario de Detalles */
+.detalle-formulario-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-agregar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+.btn-agregar {
+    height: 48px;
+    font-weight: 600;
+    padding: 0 24px;
+}
+
+/* Tabla Temporal de Detalles */
+.tabla-temporal-contenedor {
+    margin: 20px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabla-temporal {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.tabla-temporal th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+.tabla-temporal td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #edf2f7;
+    color: #2d3748;
+}
+
+.tabla-temporal tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-vacia {
+    text-align: center;
+    color: #a0aec0;
+    padding: 24px !important;
+    font-style: italic;
+}
+
+/* Footer de la Reserva */
+.reserva-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 24px;
+    padding: 16px;
+    background-color: #f7fafc;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e0;
+}
+
+.total-caja {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.total-etiqueta {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.total-valor {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #2b6cb0;
+}
+
+.btn-registrar {
+    height: 46px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.form-acciones {
+    display: flex;
+    gap: 12px;
+}
+
+/* Tarjeta e Historial */
+.tabla-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.tabla-header {
+    margin-bottom: 16px;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-completa {
+    width: 100%;
+}
+
+th.mat-header-cell {
+    font-weight: 700;
+    color: var(--mat-sys-primary);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: #f5f3ff;
+    padding: 14px 16px !important;
+}
+
+td.mat-cell {
+    padding: 12px 16px !important;
+    font-size: 0.9rem;
+    color: #2d3436;
+}
+
+tr.mat-row:hover {
+    background-color: #fafafa;
+    transition: background 0.2s ease;
+}
+
+.sala-tag {
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.btn-eliminar {
+    color: #e53935 !important;
+}
+
+.btn-eliminar:hover {
+    background-color: rgba(229, 57, 53, 0.08) !important;
+}
+
+.sin-datos {
+    text-align: center;
+    padding: 40px !important;
+    color: #b2bec3;
+}
+
+.sin-datos .material-icons {
+    font-size: 2.5rem;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+@media (max-width: 768px) {
+    .detalle-formulario-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .btn-agregar-wrapper {
+        padding-bottom: 0;
+        margin-top: 8px;
+    }
+
+    .btn-agregar {
+        width: 100%;
+    }
+
+    .reserva-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .total-caja {
+        justify-content: space-between;
+    }
+
+    .form-acciones {
+        flex-direction: column;
+    }
+}
