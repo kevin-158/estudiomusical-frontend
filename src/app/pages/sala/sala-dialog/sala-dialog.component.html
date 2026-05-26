@@ -1,0 +1,26 @@
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>Sala Info</span>
+    </mat-toolbar>
+
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Nombre" [(ngModel)]="$sala().nombre">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Estado (true/false)" [(ngModel)]="$sala().estado">
+        </mat-form-field>
+        
+        <button mat-flat-button (click)="operate()">
+            <span>OK</span>
+            <mat-icon>done</mat-icon>
+        </button>
+
+        <button mat-flat-button class="cancel-button" (click)="close()">
+            <span>Cancel</span>
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+
+</mat-dialog-content>

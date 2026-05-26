@@ -1,3 +1,3 @@
 export const environment = {
-    HOST: "http://localhost:9090"
+    HOST: "http://localhost:8080"
 };

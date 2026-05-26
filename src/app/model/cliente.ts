@@ -1,6 +1,6 @@
 export class Cliente {
-    idCliente: number;
-    nombre: string;
-    telefono: string;
-    email: string;
+    idCliente: number = 0;
+    nombre: string = '';
+    telefono: string = '';
+    email: string = '';
 }

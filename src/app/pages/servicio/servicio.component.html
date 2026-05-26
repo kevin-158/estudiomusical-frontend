@@ -1,17 +1,15 @@
-<router-outlet></router-outlet>
-
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Juan Pérez" #input>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Grabación" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="$dataSource()" matSort>
 
     <!-- ID Column -->
-    <ng-container matColumnDef="idCliente">
+    <ng-container matColumnDef="idServicio">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let row"> {{row.idCliente}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.idServicio}} </td>
     </ng-container>
 
     <!-- nombre Column -->
@@ -20,27 +18,21 @@
       <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
     </ng-container>
 
-    <!-- telefono Column -->
-    <ng-container matColumnDef="telefono">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> TELÉFONO </th>
-      <td mat-cell *matCellDef="let row"> {{row.telefono}} </td>
-    </ng-container>
-
-    <!-- email Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> EMAIL </th>
-      <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+    <!-- precioPorHora Column -->
+    <ng-container matColumnDef="precioPorHora">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> PRECIO / HORA </th>
+      <td mat-cell *matCellDef="let row"> {{row.precioPorHora}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIONS </th>
       <td mat-cell *matCellDef="let row"> 
-        <button mat-flat-button [routerLink]="['edit', row.idCliente]">
+        <button mat-flat-button (click)="openDialog(row)">
             <span>Edit</span>
             <mat-icon>edit</mat-icon>
         </button>
 
-        <button mat-flat-button class="cancel-button" (click)="delete(row.idCliente)">
+        <button mat-flat-button class="cancel-button" (click)="delete(row.idServicio)">
             <span>Delete</span>
             <mat-icon>delete</mat-icon>
         </button>  
@@ -52,13 +44,13 @@
 
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[2, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 
-  <button mat-fab style="float: right;" routerLink="/pages/cliente/new">
+  <button mat-fab style="float: right;" (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

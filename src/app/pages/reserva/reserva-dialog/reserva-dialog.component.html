@@ -1,0 +1,78 @@
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>Reserva Info</span>
+    </mat-toolbar>
+
+    <div class="example-container">
+
+        <mat-form-field>
+            <mat-label>Cliente</mat-label>
+            <mat-select [(ngModel)]="$reserva().cliente" [compareWith]="compareById">
+                @for (c of $clientes(); track c.idCliente) {
+                    <mat-option [value]="c">{{c.nombre}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Sala</mat-label>
+            <mat-select [(ngModel)]="$reserva().sala" [compareWith]="compareById">
+                @for (s of $salas(); track s.idSala) {
+                    <mat-option [value]="s">{{s.nombre}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="date" placeholder="Fecha" [(ngModel)]="$reserva().fecha">
+        </mat-form-field>
+
+        <!-- Detalles -->
+        <div class="detalles-header">
+            <span>Detalles</span>
+            <button mat-icon-button type="button" (click)="addDetalle()">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </div>
+
+        @for (d of $reserva().detalles; track $index; let i = $index) {
+            <div class="detalle-row">
+                <mat-form-field style="flex:2">
+                    <mat-label>Servicio</mat-label>
+                    <mat-select [(ngModel)]="d.servicio" [compareWith]="compareById" (ngModelChange)="calcularSubtotal(i)">
+                        @for (s of $servicios(); track s.idServicio) {
+                            <mat-option [value]="s">{{s.nombre}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field style="flex:1">
+                    <input matInput type="number" placeholder="Horas" [(ngModel)]="d.cantidadHoras" (ngModelChange)="calcularSubtotal(i)" min="1">
+                </mat-form-field>
+
+                <mat-form-field style="flex:1">
+                    <input matInput placeholder="Subtotal" [(ngModel)]="d.subtotal" readonly>
+                </mat-form-field>
+
+                <button mat-icon-button type="button" (click)="removeDetalle(i)">
+                    <mat-icon>remove_circle</mat-icon>
+                </button>
+            </div>
+        }
+
+        <mat-form-field>
+            <input matInput placeholder="Total" [(ngModel)]="$reserva().total" readonly>
+        </mat-form-field>
+
+        <button mat-flat-button (click)="operate()">
+            <span>OK</span>
+            <mat-icon>done</mat-icon>
+        </button>
+
+        <button mat-flat-button class="cancel-button" (click)="close()">
+            <span>Cancel</span>
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+
+</mat-dialog-content>

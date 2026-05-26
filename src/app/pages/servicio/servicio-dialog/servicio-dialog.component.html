@@ -1,0 +1,26 @@
+<mat-dialog-content>
+    <mat-toolbar>
+        <span>Servicio Info</span>
+    </mat-toolbar>
+
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Nombre" [(ngModel)]="$servicio().nombre">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="number" placeholder="Precio por hora" [(ngModel)]="$servicio().precioPorHora">
+        </mat-form-field>
+        
+        <button mat-flat-button (click)="operate()">
+            <span>OK</span>
+            <mat-icon>done</mat-icon>
+        </button>
+
+        <button mat-flat-button class="cancel-button" (click)="close()">
+            <span>Cancel</span>
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+
+</mat-dialog-content>

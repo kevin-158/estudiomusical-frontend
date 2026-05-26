@@ -1,0 +1,56 @@
+<form [formGroup]="$form()" (submit)="operate()" class="example-container" #frmCliente="ngForm">
+
+    <div [hidden]="true">
+        <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput placeholder="ID" formControlName="idCliente">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <mat-label>NOMBRE</mat-label>
+        <input matInput placeholder="Nombre completo" formControlName="nombre">
+        @if ($f()['nombre'].errors?.['required'] && $f()['nombre'].touched) {
+            <small class="invalid">Is required</small>
+        }
+        
+        @if ($f()['nombre'].errors?.['minlength'] && $f()['nombre'].touched) {
+            <small class="invalid">Minlength is 3</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>TELÉFONO</mat-label>
+        <input matInput placeholder="Teléfono" formControlName="telefono">
+        @if ($f()['telefono'].errors?.['required'] && $f()['telefono'].touched) {
+            <small class="invalid">Is required</small>
+        }
+        
+        @if ($f()['telefono'].errors?.['minlength'] && $f()['telefono'].touched) {
+            <small class="invalid">Minlength is 7</small>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>EMAIL</mat-label>
+        <input matInput placeholder="Email" formControlName="email">
+        @if ($f()['email'].errors?.['required'] && $f()['email'].touched) {
+            <small class="invalid">Is required</small>
+        }
+        
+        @if ($f()['email'].errors?.['email'] && $f()['email'].touched) {
+            <small class="invalid">Invalid email format</small>
+        }
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" [disabled]="frmCliente.invalid">
+        <span>OK</span>
+        <mat-icon>done</mat-icon>
+    </button>
+
+    <button mat-flat-button type="button" class="cancel-button" routerLink="/pages/cliente">
+        <span>Cancel</span>
+        <mat-icon>cancel</mat-icon>
+    </button>
+
+</form>
