@@ -1,0 +1,33 @@
+.login-page {
+  align-items: center;
+  background: linear-gradient(135deg, #17212b 0%, #243847 45%, #385269 100%);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.login-card {
+  border-radius: 8px;
+  max-width: 420px;
+  padding: 16px;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 12px;
+}
+
+mat-card-header {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #b00020;
+  font-size: 14px;
+  margin: 0 0 16px;
+}

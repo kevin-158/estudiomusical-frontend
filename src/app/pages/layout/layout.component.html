@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>{{ sidenav.opened ? 'close' : 'menu' }}</mat-icon>
     </button>
-    <span class="brand-title">🎵 ESTUDIO MUSICAL</span>
+    <span class="brand-title">ESTUDIO MUSICAL</span>
     <span class="spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
@@ -13,9 +13,9 @@
         <mat-icon>person</mat-icon>
         <span>Mi Cuenta</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="logout()">
         <mat-icon>logout</mat-icon>
-        <span>Cerrar Sesión</span>
+        <span>Cerrar Sesion</span>
       </button>
     </mat-menu>
   </mat-toolbar>
@@ -24,32 +24,44 @@
     <mat-sidenav #sidenav mode="side" opened class="sidenav" style="width: 260px;">
       <div class="sidenav-header">
         <span class="material-icons logo-icon">graphic_eq</span>
-        <h3>Menú Principal</h3>
+        <h3>Menu Principal</h3>
       </div>
       <mat-divider></mat-divider>
 
       <div class="menu-items">
-        <a class="menu-item" mat-menu-item routerLink="/clientes" routerLinkActive="active">
+        <a class="menu-item" mat-menu-item routerLink="/pages/clientes" routerLinkActive="active">
           <mat-icon>people</mat-icon>
           <span>Clientes</span>
         </a>
         <mat-divider></mat-divider>
 
-        <a class="menu-item" mat-menu-item routerLink="/salas" routerLinkActive="active">
+        <a class="menu-item" mat-menu-item routerLink="/pages/salas" routerLinkActive="active">
           <mat-icon>meeting_room</mat-icon>
           <span>Salas</span>
         </a>
         <mat-divider></mat-divider>
 
-        <a class="menu-item" mat-menu-item routerLink="/servicios" routerLinkActive="active">
+        <a class="menu-item" mat-menu-item routerLink="/pages/servicios" routerLinkActive="active">
           <mat-icon>music_note</mat-icon>
           <span>Servicios</span>
         </a>
         <mat-divider></mat-divider>
 
-        <a class="menu-item" mat-menu-item routerLink="/reservas" routerLinkActive="active">
+        <a class="menu-item" mat-menu-item routerLink="/pages/reservas" routerLinkActive="active">
           <mat-icon>event</mat-icon>
           <span>Reservas</span>
+        </a>
+        <mat-divider></mat-divider>
+
+        <a class="menu-item" mat-menu-item routerLink="/pages/equipos" routerLinkActive="active">
+          <mat-icon>mic</mat-icon>
+          <span>Equipos Tecnicos</span>
+        </a>
+        <mat-divider></mat-divider>
+
+        <a class="menu-item" mat-menu-item routerLink="/pages/reportes" routerLinkActive="active">
+          <mat-icon>dashboard</mat-icon>
+          <span>Reportes</span>
         </a>
         <mat-divider></mat-divider>
       </div>
