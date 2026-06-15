@@ -1,0 +1,165 @@
+<div class="contenedor-seccion">
+
+  <!-- ENCABEZADO -->
+  <h1 class="titulo">
+    <span class="material-icons titulo-icono">mic</span>
+    Equipos Técnicos
+  </h1>
+
+  <!-- FORMULARIO REGISTRO / EDICIÓN -->
+  <form #equipoForm="ngForm" (ngSubmit)="equipoForm.valid && guardar()" class="form-card">
+    <h2 class="form-titulo">
+      <span class="material-icons">{{ isEditing ? 'edit' : 'settings' }}</span>
+      {{ isEditing ? 'Editar Equipo' : 'Nuevo Equipo' }}
+    </h2>
+
+    <div class="form-grid">
+
+      <!-- Nombre -->
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Nombre del Equipo</mat-label>
+        <input matInput name="nombre" [(ngModel)]="equipo.nombre" placeholder="ej. Micrófono Shure SM7B" required #nombreField="ngModel" />
+        <mat-icon matSuffix>keyboard</mat-icon>
+        <mat-error *ngIf="nombreField.invalid && (nombreField.dirty || nombreField.touched)">
+          El nombre del equipo es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Marca -->
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Marca</mat-label>
+        <input matInput name="marca" [(ngModel)]="equipo.marca" placeholder="ej. Shure" required #marcaField="ngModel" />
+        <mat-icon matSuffix>branding_watermark</mat-icon>
+        <mat-error *ngIf="marcaField.invalid && (marcaField.dirty || marcaField.touched)">
+          La marca es obligatoria.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Modelo -->
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Modelo</mat-label>
+        <input matInput name="modelo" [(ngModel)]="equipo.modelo" placeholder="ej. SM7B" required #modeloField="ngModel" />
+        <mat-icon matSuffix>label</mat-icon>
+        <mat-error *ngIf="modeloField.invalid && (modeloField.dirty || modeloField.touched)">
+          El modelo es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Estado -->
+      <mat-form-field appearance="outline" class="campo">
+        <mat-label>Estado</mat-label>
+        <mat-select name="estado" [(ngModel)]="equipo.estado" required #estadoField="ngModel">
+          <mat-option value="DISPONIBLE">DISPONIBLE</mat-option>
+          <mat-option value="PRESTADO">PRESTADO</mat-option>
+          <mat-option value="MANTENIMIENTO">MANTENIMIENTO</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>info</mat-icon>
+        <mat-error *ngIf="estadoField.invalid && (estadoField.dirty || estadoField.touched)">
+          El estado es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="form-acciones">
+      <button mat-raised-button color="primary" type="submit" [disabled]="equipoForm.invalid">
+        <mat-icon>{{ isEditing ? 'save' : 'add_circle' }}</mat-icon>
+        {{ isEditing ? 'Actualizar' : 'Registrar' }}
+      </button>
+      @if (isEditing) {
+        <button mat-stroked-button type="button" (click)="limpiar()">
+          <mat-icon>cancel</mat-icon>
+          Cancelar
+        </button>
+      }
+    </div>
+  </form>
+
+  <!-- TABLA DE EQUIPOS -->
+  <div class="tabla-card">
+
+    <div class="tabla-header">
+      <h2 class="form-titulo">
+        <span class="material-icons">list_alt</span>
+        Listado de Equipos
+      </h2>
+      <mat-form-field appearance="outline" class="campo-buscar">
+        <mat-label>Buscar...</mat-label>
+        <input matInput (keyup)="applyFilter($event)" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="tabla-contenedor">
+      <table mat-table [dataSource]="dataSource()" class="tabla-completa mat-elevation-z2">
+
+        <!-- ID -->
+        <ng-container matColumnDef="idEquipo">
+          <th mat-header-cell *matHeaderCellDef>#</th>
+          <td mat-cell *matCellDef="let row">{{ row.idEquipo }}</td>
+        </ng-container>
+
+        <!-- Nombre -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Equipo</th>
+          <td mat-cell *matCellDef="let row">{{ row.nombre }}</td>
+        </ng-container>
+
+        <!-- Marca -->
+        <ng-container matColumnDef="marca">
+          <th mat-header-cell *matHeaderCellDef>Marca</th>
+          <td mat-cell *matCellDef="let row">{{ row.marca }}</td>
+        </ng-container>
+
+        <!-- Modelo -->
+        <ng-container matColumnDef="modelo">
+          <th mat-header-cell *matHeaderCellDef>Modelo</th>
+          <td mat-cell *matCellDef="let row">{{ row.modelo }}</td>
+        </ng-container>
+
+        <!-- Estado -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let row">
+            <span class="status-badge" [ngClass]="{
+              'status-disponible': row.estado === 'DISPONIBLE',
+              'status-prestado': row.estado === 'PRESTADO',
+              'status-mantenimiento': row.estado === 'MANTENIMIENTO'
+            }">
+              {{ row.estado }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Acciones -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button class="btn-editar" matTooltip="Editar" (click)="editar(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button class="btn-eliminar" matTooltip="Eliminar" (click)="eliminar(row.idEquipo)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Sin datos -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell sin-datos" colspan="6">
+            <span class="material-icons">search_off</span>
+            <p>No se encontraron equipos técnicos.</p>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+
+  </div>
+
+</div>

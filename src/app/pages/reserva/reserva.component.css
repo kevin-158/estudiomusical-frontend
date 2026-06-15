@@ -1,0 +1,349 @@
+.contenedor-seccion {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #2d3436;
+    font-size: 1.8rem;
+    border-bottom: 3px solid var(--mat-sys-primary);
+    display: inline-flex;
+    margin-bottom: 1.5rem;
+}
+
+.titulo-icono {
+    font-size: 2rem;
+    color: var(--mat-sys-primary);
+}
+
+/* Transacción Grid Layout */
+.transaccion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.columna-izquierda, .columna-derecha {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border-left: 5px solid var(--mat-sys-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.form-titulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    color: #2d3436;
+    margin: 0 0 16px 0;
+    font-weight: 600;
+}
+
+.form-titulo .material-icons {
+    color: var(--mat-sys-primary);
+}
+
+.form-grid-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.campo {
+    width: 100%;
+}
+
+/* Calendario Estilos */
+mat-calendar {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.fecha-seleccionada-display {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #4a5568;
+}
+
+.fecha-seleccionada-display strong {
+    color: var(--mat-sys-primary);
+}
+
+/* Alertas de Ocupación y Validaciones */
+.alert-conflict {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 12px;
+    background-color: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 6px;
+    color: #c53030;
+    font-size: 0.88rem;
+    line-height: 1.25;
+}
+
+.alert-conflict .material-icons {
+    color: #e53e3e;
+}
+
+.alert-warning-abono {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 10px;
+    background-color: #fffaf0;
+    border: 1px solid #feebc8;
+    border-radius: 6px;
+    color: #dd6b20;
+    font-size: 0.85rem;
+}
+
+.alert-warning-abono .material-icons {
+    color: #dd6b20;
+}
+
+/* Formulario de Detalles */
+.detalle-formulario-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-agregar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+.btn-agregar {
+    height: 48px;
+    font-weight: 600;
+    padding: 0 20px;
+}
+
+/* Tabla Temporal de Detalles */
+.tabla-temporal-contenedor {
+    margin: 16px 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabla-temporal {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabla-temporal th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+.tabla-temporal td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #edf2f7;
+    color: #2d3748;
+}
+
+.tabla-temporal tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-vacia {
+    text-align: center;
+    color: #a0aec0;
+    padding: 20px !important;
+    font-style: italic;
+}
+
+/* Resumen de Reserva */
+.reserva-resumen-seccion {
+    background-color: #f7fafc;
+    border: 1px dashed #cbd5e0;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resumen-label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.resumen-valor {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.total-color {
+    color: #2b6cb0;
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.abono-color {
+    color: #2e7d32 !important;
+}
+
+.saldo-color {
+    color: #d32f2f !important;
+}
+
+/* Acciones */
+.reserva-footer-acciones {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-registrar {
+    flex-grow: 1;
+    height: 48px;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* Tarjeta e Historial */
+.tabla-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.tabla-header {
+    margin-bottom: 16px;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-completa {
+    width: 100%;
+}
+
+th.mat-header-cell {
+    font-weight: 700;
+    color: var(--mat-sys-primary);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: #f5f3ff;
+    padding: 14px 16px !important;
+}
+
+td.mat-cell {
+    padding: 12px 16px !important;
+    font-size: 0.9rem;
+    color: #2d3436;
+}
+
+tr.mat-row:hover {
+    background-color: #fafafa;
+    transition: background 0.2s ease;
+}
+
+.sala-tag {
+    background-color: #ebf8ff;
+    color: #2b6cb0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.82rem;
+}
+
+.metodo-tag {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.btn-eliminar {
+    color: #e53935 !important;
+}
+
+.btn-eliminar:hover {
+    background-color: rgba(229, 57, 53, 0.08) !important;
+}
+
+.sin-datos {
+    text-align: center;
+    padding: 40px !important;
+    color: #b2bec3;
+}
+
+.sin-datos .material-icons {
+    font-size: 2.5rem;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+/* Responsividad */
+@media (max-width: 900px) {
+    .transaccion-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .detalle-formulario-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .btn-agregar-wrapper {
+        padding-bottom: 0;
+        margin-top: 8px;
+    }
+
+    .btn-agregar {
+        width: 100%;
+    }
+
+    .reserva-footer-acciones {
+        flex-direction: column;
+    }
+}
