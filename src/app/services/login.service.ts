@@ -28,4 +28,50 @@ export class LoginService {
 
     return this.http.get<void>(`${environment.HOST}/auth/logout`);
   }
+
+  getToken() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
+    return sessionStorage.getItem(environment.TOKEN_NAME);
+  }
+
+  getRoles(): string[] {
+    const token = this.getToken();
+
+    if (!token) {
+      return [];
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      const roleClaim = payload.role ?? '';
+      return String(roleClaim)
+        .split(',')
+        .map(role => role.trim())
+        .filter(Boolean);
+    } catch {
+      return [];
+    }
+  }
+
+  hasAnyRole(roles: string[]) {
+    const userRoles = this.getRoles();
+    return roles.some(role => userRoles.includes(role));
+  }
+
+  getHomeRoute() {
+    const roles = this.getRoles();
+
+    if (roles.includes('ADMIN')) {
+      return '/pages/reportes';
+    }
+
+    if (roles.includes('INGENIERO')) {
+      return '/pages/reservas';
+    }
+
+    return '/pages/reservas';
+  }
 }

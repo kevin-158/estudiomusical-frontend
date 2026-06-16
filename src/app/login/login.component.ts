@@ -46,7 +46,7 @@ export class LoginComponent {
     this.loginService.login(username, password).subscribe({
       next: data => {
         sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
-        this.router.navigate(['/pages/clientes']);
+        this.router.navigate([this.loginService.getHomeRoute()]);
       },
       error: () => {
         this.loginError.set(true);

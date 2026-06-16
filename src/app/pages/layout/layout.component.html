@@ -5,6 +5,9 @@
     </button>
     <span class="brand-title">ESTUDIO MUSICAL</span>
     <span class="spacer"></span>
+    @if (currentRoles.length) {
+      <span class="role-chip">{{ currentRoles.join(', ') }}</span>
+    }
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
@@ -29,41 +32,15 @@
       <mat-divider></mat-divider>
 
       <div class="menu-items">
-        <a class="menu-item" mat-menu-item routerLink="/pages/clientes" routerLinkActive="active">
-          <mat-icon>people</mat-icon>
-          <span>Clientes</span>
-        </a>
-        <mat-divider></mat-divider>
-
-        <a class="menu-item" mat-menu-item routerLink="/pages/salas" routerLinkActive="active">
-          <mat-icon>meeting_room</mat-icon>
-          <span>Salas</span>
-        </a>
-        <mat-divider></mat-divider>
-
-        <a class="menu-item" mat-menu-item routerLink="/pages/servicios" routerLinkActive="active">
-          <mat-icon>music_note</mat-icon>
-          <span>Servicios</span>
-        </a>
-        <mat-divider></mat-divider>
-
-        <a class="menu-item" mat-menu-item routerLink="/pages/reservas" routerLinkActive="active">
-          <mat-icon>event</mat-icon>
-          <span>Reservas</span>
-        </a>
-        <mat-divider></mat-divider>
-
-        <a class="menu-item" mat-menu-item routerLink="/pages/equipos" routerLinkActive="active">
-          <mat-icon>mic</mat-icon>
-          <span>Equipos Tecnicos</span>
-        </a>
-        <mat-divider></mat-divider>
-
-        <a class="menu-item" mat-menu-item routerLink="/pages/reportes" routerLinkActive="active">
-          <mat-icon>dashboard</mat-icon>
-          <span>Reportes</span>
-        </a>
-        <mat-divider></mat-divider>
+        @for (item of menuItems; track item.route) {
+          @if (canShow(item.roles)) {
+            <a class="menu-item" mat-menu-item [routerLink]="item.route" routerLinkActive="active">
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span>{{ item.label }}</span>
+            </a>
+            <mat-divider></mat-divider>
+          }
+        }
       </div>
     </mat-sidenav>
 

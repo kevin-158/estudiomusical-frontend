@@ -25,6 +25,17 @@
   flex: 1 1 auto;
 }
 
+.role-chip {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-right: 12px;
+  padding: 4px 10px;
+}
+
 .sidenav-container {
   flex: 1;
 }

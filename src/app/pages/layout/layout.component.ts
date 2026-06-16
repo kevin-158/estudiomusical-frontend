@@ -28,6 +28,21 @@ export class LayoutComponent {
   private readonly loginService = inject(LoginService);
   private readonly router = inject(Router);
 
+  readonly menuItems = [
+    { label: 'Clientes', icon: 'people', route: '/pages/clientes', roles: ['ADMIN', 'INGENIERO'] },
+    { label: 'Salas', icon: 'meeting_room', route: '/pages/salas', roles: ['ADMIN', 'INGENIERO'] },
+    { label: 'Servicios', icon: 'music_note', route: '/pages/servicios', roles: ['ADMIN', 'INGENIERO'] },
+    { label: 'Reservas', icon: 'event', route: '/pages/reservas', roles: ['ADMIN', 'INGENIERO', 'CLIENTE'] },
+    { label: 'Equipos Tecnicos', icon: 'mic', route: '/pages/equipos', roles: ['ADMIN', 'INGENIERO'] },
+    { label: 'Reportes', icon: 'dashboard', route: '/pages/reportes', roles: ['ADMIN'] },
+  ];
+
+  readonly currentRoles = this.loginService.getRoles();
+
+  canShow(roles: string[]) {
+    return this.loginService.hasAnyRole(roles);
+  }
+
   logout() {
     this.loginService.logout().subscribe({
       next: () => this.router.navigate(['/login']),
