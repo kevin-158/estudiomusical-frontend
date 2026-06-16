@@ -1,17 +1,97 @@
 .login-page {
   align-items: center;
-  background: linear-gradient(135deg, #17212b 0%, #243847 45%, #385269 100%);
+  background:
+    linear-gradient(135deg, rgba(16, 24, 39, 0.96), rgba(36, 56, 71, 0.92)),
+    radial-gradient(circle at 15% 20%, rgba(99, 179, 237, 0.18), transparent 32%),
+    #17212b;
   display: flex;
+  gap: 48px;
   justify-content: center;
   min-height: 100vh;
   padding: 24px;
 }
 
+.login-intro {
+  color: #f8fafc;
+  max-width: 460px;
+}
+
+.brand-mark {
+  align-items: center;
+  background: rgba(99, 179, 237, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  display: flex;
+  height: 58px;
+  justify-content: center;
+  margin-bottom: 22px;
+  width: 58px;
+}
+
+.brand-mark mat-icon {
+  color: #7dd3fc;
+  font-size: 34px;
+  height: 34px;
+  width: 34px;
+}
+
+.eyebrow {
+  color: #93c5fd;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.login-intro h1 {
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.08;
+  margin: 0 0 16px;
+}
+
+.intro-copy {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.role-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-summary span {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 10px;
+}
+
 .login-card {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
   border-radius: 8px;
   max-width: 420px;
-  padding: 16px;
+  padding: 20px;
   width: 100%;
+}
+
+.login-header {
+  align-items: center;
+}
+
+.card-icon {
+  align-items: center;
+  background: #e0f2fe;
+  color: #0369a1;
+  display: flex;
+  justify-content: center;
 }
 
 .full-width {
@@ -27,7 +107,58 @@ mat-card-header {
 }
 
 .error-message {
-  color: #b00020;
+  align-items: center;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 8px;
+  color: #be123c;
+  display: flex;
   font-size: 14px;
+  gap: 8px;
   margin: 0 0 16px;
+  padding: 10px 12px;
+}
+
+.error-message mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.demo-users {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  margin-top: 18px;
+  padding: 12px;
+}
+
+.demo-users p {
+  color: #334155;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.demo-users span {
+  color: #64748b;
+  font-size: 0.78rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 860px) {
+  .login-page {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .login-intro {
+    max-width: 420px;
+  }
+
+  .login-intro h1 {
+    font-size: 1.9rem;
+  }
 }

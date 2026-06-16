@@ -1,22 +1,43 @@
 <main class="login-page">
+  <section class="login-intro" aria-label="Presentacion del sistema">
+    <div class="brand-mark">
+      <mat-icon>graphic_eq</mat-icon>
+    </div>
+    <p class="eyebrow">ZoneStyle Studio</p>
+    <h1>Gestion de reservas para estudio musical</h1>
+    <p class="intro-copy">
+      Acceso seguro para administradores, ingenieros de sonido y clientes.
+    </p>
+    <div class="role-summary">
+      <span>ADMIN</span>
+      <span>INGENIERO</span>
+      <span>CLIENTE</span>
+    </div>
+  </section>
+
   <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>Estudio Musical</mat-card-title>
-      <mat-card-subtitle>Iniciar sesion</mat-card-subtitle>
+    <mat-card-header class="login-header">
+      <div class="card-icon" mat-card-avatar>
+        <mat-icon>lock</mat-icon>
+      </div>
+      <mat-card-title>Iniciar sesion</mat-card-title>
+      <mat-card-subtitle>Ingrese con su usuario o correo registrado</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Usuario</mat-label>
-          <input matInput formControlName="username" autocomplete="username">
+          <mat-label>Usuario o correo</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput formControlName="username" autocomplete="username" placeholder="admin@zonestyle.com">
           @if (loginForm.get('username')?.hasError('required')) {
-            <mat-error>Ingrese su usuario</mat-error>
+            <mat-error>Ingrese su usuario o correo</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Contrasena</mat-label>
+          <mat-icon matPrefix>key</mat-icon>
           <input matInput type="password" formControlName="password" autocomplete="current-password">
           @if (loginForm.get('password')?.hasError('required')) {
             <mat-error>Ingrese su contrasena</mat-error>
@@ -27,12 +48,22 @@
         </mat-form-field>
 
         @if (loginError()) {
-          <p class="error-message">Usuario o contrasena incorrectos</p>
+          <div class="error-message">
+            <mat-icon>error</mat-icon>
+            <span>Usuario o contrasena incorrectos</span>
+          </div>
         }
 
         <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="loginForm.invalid || isLoggingIn()">
           {{ isLoggingIn() ? 'Ingresando...' : 'Ingresar' }}
         </button>
+
+        <div class="demo-users">
+          <p>Accesos de prueba</p>
+          <span>admin@zonestyle.com / admin159</span>
+          <span>ingeniero@zonestyle.com / ingeniero159</span>
+          <span>cliente@zonestyle.com / cliente159</span>
+        </div>
       </form>
     </mat-card-content>
   </mat-card>
