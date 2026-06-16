@@ -23,6 +23,7 @@ import { LoginService } from '../services/login.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+
   private readonly loginService = inject(LoginService);
   private readonly router = inject(Router);
 
@@ -31,10 +32,14 @@ export class LoginComponent {
 
   readonly loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3)
+    ]),
   });
 
   login() {
+
     if (this.loginForm.invalid || this.isLoggingIn()) {
       return;
     }
@@ -42,19 +47,37 @@ export class LoginComponent {
     this.isLoggingIn.set(true);
     this.loginError.set(false);
 
-    const username = this.loginForm.value.username ?? '';
-    const password = this.loginForm.value.password ?? '';
+    // Mejora: eliminar espacios al inicio y final
+    const username = (this.loginForm.value.username ?? '').trim();
+    const password = (this.loginForm.value.password ?? '').trim();
+
+    // Mejora: evitar envío de credenciales vacías
+    if (!username || !password) {
+      this.loginError.set(true);
+      this.isLoggingIn.set(false);
+      return;
+    }
 
     this.loginService.login(username, password).subscribe({
       next: data => {
-        sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
-        this.router.navigate([this.loginService.getHomeRoute()]);
+        sessionStorage.setItem(
+          environment.TOKEN_NAME,
+          data.access_token
+        );
+
+        this.router.navigate([
+          this.loginService.getHomeRoute()
+        ]);
       },
+
       error: () => {
         this.loginError.set(true);
         this.isLoggingIn.set(false);
       },
-      complete: () => this.isLoggingIn.set(false),
+
+      complete: () => {
+        this.isLoggingIn.set(false);
+      },
     });
   }
 }
